@@ -27,6 +27,7 @@ struct Home: View {
                 }
             }
             .padding(15)
+            .frame(width: 250)
         }
 //        .popover(isPresented: $showPopover) {
 //            Text("Hello. It is Kyo.")
