@@ -234,3 +234,28 @@ iOSPopover.swift
         }
     }
 ```
+
+## [Updating SwiftUI View, when it's Changed]()
+
+<img width="300" alt="スクリーンショット 2023-03-28 7 23 38" src="https://user-images.githubusercontent.com/47273077/228081925-62dde573-e0df-4b28-aa0c-cb635fb9dbbb.gif">
+
+iOSPopover.swift
+```swift
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        
+        if alrearyPresented {
+            /// - Updating SwiftUI View, when it's Changed
+            if let hostingController = uiViewController.presentedViewController as? CustomHostingView<Content> {
+                hostingController.rootView = content
+            }
+            
+            /// - Close View, if it's toggled back
+            if !isPresented {
+                /// - Closing Popover
+                uiViewController.dismiss(animated: true) {
+                    // - Rsetting alredyPresented State
+                    alrearyPresented = false
+                }
+            }
+        } else {
+```
