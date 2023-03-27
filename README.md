@@ -196,3 +196,7 @@ struct Home: View {
     }
 }
 ```
+
+## Closing Popover
+<img width="300" alt="スクリーンショット 2023-03-28 7 23 38" src="https://user-images.githubusercontent.com/47273077/228080471-ffda40f3-6248-4576-aeaa-bd54cc72165a.gif">
+
