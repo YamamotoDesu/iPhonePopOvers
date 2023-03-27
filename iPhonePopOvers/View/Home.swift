@@ -10,13 +10,23 @@ import SwiftUI
 struct Home: View {
     /// - View Properties
     @State private var showPopover: Bool = false
+    @State private var updateText: Bool = false
     var body: some View {
         Button("Show Popover") {
             showPopover.toggle()
         }
-        .iOSPopover(isPresented: $showPopover, arrowDirection: .up) {
-            Text("Hello, it is me, Popover.")
-                .padding(15)
+        .iOSPopover(isPresented: $showPopover, arrowDirection: .down) {
+            VStack(spacing: 12) {
+                Text("Hello, it is me. \(updateText ? "Updated Popover" : "Popover").")
+                    .padding(15)
+                Button("Update Text") {
+                    updateText.toggle()
+                }
+                Button("Close Text") {
+                    showPopover.toggle()
+                }
+            }
+            .padding(15)
         }
 //        .popover(isPresented: $showPopover) {
 //            Text("Hello. It is Kyo.")

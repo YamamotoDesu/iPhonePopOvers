@@ -24,6 +24,8 @@ fileprivate struct PopOverController<Content: View>: UIViewControllerRepresentab
     @Binding var isPresented: Bool
     var arrowDirection: UIPopoverArrowDirection
     var content: Content
+    /// - View Properties
+    @State private var alrearyPresented: Bool = false
     
     func makeCoordinator() -> Coordinator {
         return Coordinator(parent: self)
@@ -36,21 +38,27 @@ fileprivate struct PopOverController<Content: View>: UIViewControllerRepresentab
     }
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        if isPresented {
-            /// - Presenting Popover
-//            let controller = UIHostingController(rootView: content)
-            let controller = CustomHostingView(rootView: content)
-            controller.view.backgroundColor = .clear
-            controller.modalPresentationStyle = .popover
-            controller.popoverPresentationController?.permittedArrowDirections = arrowDirection
-            
-            /// - Connecting Delegate
-            controller.presentationController?.delegate = context.coordinator
-            
-            /// - We head to Attach the Source View So that it will show Arrow At Correct Position
-            controller.popoverPresentationController?.sourceView = uiViewController.view
-            /// - Simply Presenting PopOver Controller
-            uiViewController.present(controller, animated: true)
+        
+        if alrearyPresented {
+            /// - Close View, if it's toggled back
+            print(isPresented)
+        } else {
+            if isPresented {
+                /// - Presenting Popover
+    //            let controller = UIHostingController(rootView: content)
+                let controller = CustomHostingView(rootView: content)
+                controller.view.backgroundColor = .clear
+                controller.modalPresentationStyle = .popover
+                controller.popoverPresentationController?.permittedArrowDirections = arrowDirection
+                
+                /// - Connecting Delegate
+                controller.presentationController?.delegate = context.coordinator
+                
+                /// - We head to Attach the Source View So that it will show Arrow At Correct Position
+                controller.popoverPresentationController?.sourceView = uiViewController.view
+                /// - Simply Presenting PopOver Controller
+                uiViewController.present(controller, animated: true)
+            }
         }
     }
     
@@ -69,6 +77,18 @@ fileprivate struct PopOverController<Content: View>: UIViewControllerRepresentab
         /// - When it is dismissed updating the isPresented State
         func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
             parent.isPresented = false
+        }
+
+        /// - When the popover is presented, updating the alredyPresented State
+        func presentationController(
+            _ presentationController: UIPresentationController,
+            willPresentWithAdaptiveStyle style: UIModalPresentationStyle,
+            transitionCoordinator: UIViewControllerTransitionCoordinator?
+        ) {
+            
+            DispatchQueue.main.async {
+                self.parent.alrearyPresented = true
+            }
         }
     }
 }
