@@ -43,6 +43,9 @@ fileprivate struct PopOverController<Content: View>: UIViewControllerRepresentab
             /// - Updating SwiftUI View, when it's Changed
             if let hostingController = uiViewController.presentedViewController as? CustomHostingView<Content> {
                 hostingController.rootView = content
+                /// - Updating View Size when it's Updated
+                /// - 0r you can define your own size in SwiftUI  View
+                hostingController.preferredContentSize = hostingController.view.intrinsicContentSize
             }
             
             /// - Close View, if it's toggled back
