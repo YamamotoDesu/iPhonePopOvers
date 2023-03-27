@@ -40,6 +40,11 @@ fileprivate struct PopOverController<Content: View>: UIViewControllerRepresentab
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
         
         if alrearyPresented {
+            /// - Updating SwiftUI View, when it's Changed
+            if let hostingController = uiViewController.presentedViewController as? CustomHostingView<Content> {
+                hostingController.rootView = content
+            }
+            
             /// - Close View, if it's toggled back
             if !isPresented {
                 /// - Closing Popover
