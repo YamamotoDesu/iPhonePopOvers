@@ -1,4 +1,5 @@
 # iPhonePopOvers
+https://www.youtube.com/watch?v=5VPEcZy0FaQ&t=1s
 
 <img width="300" alt="スクリーンショット 2023-03-28 6 44 20" src="https://user-images.githubusercontent.com/47273077/228073988-304b5f1d-cb05-4222-b585-e1c63cecc6e9.gif">
 
@@ -105,7 +106,9 @@ struct Home: View {
 }
 ```
 
-## Detect alrearyPresented
+## [Detect alrearyPresented](https://github.com/YamamotoDesu/iPhonePopOvers/commit/775fed357f716af4fff78808c10c9d3bf89ac11c)
+![2023-03-28 07 18 46](https://user-images.githubusercontent.com/47273077/228079571-8884bd36-5242-4933-91d3-02a9f1b54513.gif)
+
 iOSPopover.swift
 ```swift
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
@@ -192,4 +195,42 @@ struct Home: View {
 //        }
     }
 }
+```
+
+## Closing Popover
+
+<img width="300" alt="スクリーンショット 2023-03-28 7 23 38" src="https://user-images.githubusercontent.com/47273077/228080471-ffda40f3-6248-4576-aeaa-bd54cc72165a.gif">
+
+iOSPopover.swift
+```swift
+  func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        
+        if alrearyPresented {
+            /// - Close View, if it's toggled back
+            if !isPresented {
+                /// - Closing Popover
+                uiViewController.dismiss(animated: true) {
+                    // - Rsetting alredyPresented State
+                    alrearyPresented = false
+                }
+            }
+        } else {
+            if isPresented {
+                /// - Presenting Popover
+    //            let controller = UIHostingController(rootView: content)
+                let controller = CustomHostingView(rootView: content)
+                controller.view.backgroundColor = .clear
+                controller.modalPresentationStyle = .popover
+                controller.popoverPresentationController?.permittedArrowDirections = arrowDirection
+                
+                /// - Connecting Delegate
+                controller.presentationController?.delegate = context.coordinator
+                
+                /// - We head to Attach the Source View So that it will show Arrow At Correct Position
+                controller.popoverPresentationController?.sourceView = uiViewController.view
+                /// - Simply Presenting PopOver Controller
+                uiViewController.present(controller, animated: true)
+            }
+        }
+    }
 ```
