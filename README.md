@@ -1,6 +1,10 @@
 # iPhonePopOvers
 https://www.youtube.com/watch?v=5VPEcZy0FaQ&t=1s
 
+<img width="300" alt="スクリーンショット 2023-03-28 7 54 11" src="https://user-images.githubusercontent.com/47273077/228085003-06ba050c-e9f6-463e-a278-a40732c52d82.gif">
+
+## Set up Popover
+
 <img width="300" alt="スクリーンショット 2023-03-28 6 44 20" src="https://user-images.githubusercontent.com/47273077/228073988-304b5f1d-cb05-4222-b585-e1c63cecc6e9.gif">
 
 
@@ -315,3 +319,39 @@ Home.swift
             .padding(15)
             .frame(width: 250)
 ```
+
+## Give Full Popover Color
+
+<img width="300" alt="スクリーンショット 2023-03-28 7 54 11" src="https://user-images.githubusercontent.com/47273077/228084805-f8bf7dc1-5060-4a59-9045-559988d08b70.png">
+
+```swift
+struct Home: View {
+    /// - View Properties
+    @State private var showPopover: Bool = false
+    @State private var updateText: Bool = false
+    var body: some View {
+        Button("Show Popover") {
+            showPopover.toggle()
+        }
+        .iOSPopover(isPresented: $showPopover, arrowDirection: .down) {
+            VStack(spacing: 12) {
+                Text("Hello, it is me. \(updateText ? "Updated Popover" : "Popover").")
+                    .padding(15)
+                Button("Update Text") {
+                    updateText.toggle()
+                }
+                Button("Close Text") {
+                    showPopover.toggle()
+                }
+            }
+            .foregroundColor(.white)
+            .padding(15)
+            /// - You can also Give Full Popover Color like this
+            .background {
+                Rectangle()
+                    .fill(.blue.gradient)
+                    .padding(-20)
+            }
+        }
+ ```
+
