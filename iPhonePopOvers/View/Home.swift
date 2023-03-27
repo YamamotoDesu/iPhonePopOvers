@@ -26,8 +26,15 @@ struct Home: View {
                     showPopover.toggle()
                 }
             }
+            .foregroundColor(.white)
             .padding(15)
             .frame(width: 250)
+            /// - You can also Give Full Popover Color like this
+            .background {
+                Rectangle()
+                    .fill(.blue.gradient)
+                    .padding(-20)
+            }
         }
 //        .popover(isPresented: $showPopover) {
 //            Text("Hello. It is Kyo.")
