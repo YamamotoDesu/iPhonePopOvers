@@ -106,6 +106,8 @@ struct Home: View {
 ```
 
 ## Detect alrearyPresented
+![2023-03-28 07 18 46](https://user-images.githubusercontent.com/47273077/228079571-8884bd36-5242-4933-91d3-02a9f1b54513.gif)
+
 iOSPopover.swift
 ```swift
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
