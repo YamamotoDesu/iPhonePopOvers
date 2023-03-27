@@ -41,7 +41,13 @@ fileprivate struct PopOverController<Content: View>: UIViewControllerRepresentab
         
         if alrearyPresented {
             /// - Close View, if it's toggled back
-            print(isPresented)
+            if !isPresented {
+                /// - Closing Popover
+                uiViewController.dismiss(animated: true) {
+                    // - Rsetting alredyPresented State
+                    alrearyPresented = false
+                }
+            }
         } else {
             if isPresented {
                 /// - Presenting Popover
