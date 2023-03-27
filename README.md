@@ -287,3 +287,31 @@ iOSPopover.swift
             }
         } else {
  ```
+ 
+## Set Frame Width
+<img width="300" alt="スクリーンショット 2023-03-28 7 23 38" src="https://user-images.githubusercontent.com/47273077/228084033-822eedaf-444c-40b3-87f7-40a53c9417f6.gif">
+
+Home.swift 
+ ```swift
+ struct Home: View {
+    /// - View Properties
+    @State private var showPopover: Bool = false
+    @State private var updateText: Bool = false
+    var body: some View {
+        Button("Show Popover") {
+            showPopover.toggle()
+        }
+        .iOSPopover(isPresented: $showPopover, arrowDirection: .down) {
+            VStack(spacing: 12) {
+                Text("Hello, it is me. \(updateText ? "Updated Popover" : "Popover").")
+                    .padding(15)
+                Button("Update Text") {
+                    updateText.toggle()
+                }
+                Button("Close Text") {
+                    showPopover.toggle()
+                }
+            }
+            .padding(15)
+            .frame(width: 250)
+```
